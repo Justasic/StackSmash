@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>{{ parts.title }}</title>
+	{% autoescape off %}
+	{{ parts.stylesheet }}
+	{% endautoescape %}
+{% endblock %}
+
+{% block body %}
+	<div class="document">
+		{% autoescape off %}
+			{{ parts.html_title }}
+			{{ parts.html_subtitle }}
+			{{ parts.fragment }}
+		{% endautoescape %}
+	</div>
+{% endblock %}
