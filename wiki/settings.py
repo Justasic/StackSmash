@@ -1,3 +1,4 @@
+import os
 # Django settings for wiki project.
 
 DEBUG = True
@@ -74,7 +75,7 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-DOC_PATH = "/Users/Shared/Notes/"
+DOC_PATH = os.getcwd() + "/docs/"
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -113,7 +114,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/usr/local/nginx/wiki/templates/'
+    os.getcwd() + '/templates/',
 )
 
 INSTALLED_APPS = (

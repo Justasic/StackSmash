@@ -40,7 +40,7 @@ def page(request, path):
             filePath = os.path.join(filePath, 'index')
 	# Could not resolve anything, 404.
         if not os.path.isfile(filePath):
-            raise Http404("Path: " + path)
+            raise Http404("Path: " + filePath)
 
         ctx = {
             'parts': publish_parts(
