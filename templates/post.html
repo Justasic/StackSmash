@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>StackSmash - {{post.shorttitle}}</title>
+<link type="text/css"></link>
+{% endblock %}
+
+{% block body %}
+	<div class="pre-post">{{post.title}} - {{post.date|date:"r"}}</div>
+	<div class="post">{{post.content}}</div>
+{% endblock %}
+
