@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>StackSmash - posts</title>
+	<link type="text/css" href="/static/posts.css" rel="stylesheet"></link>
+{% endblock %}
+
+{% block body %}
+<!-- not sure what goes here :< -->
+	<div class="posts">
+	{% foreach post in posts %}
+		<!-- a tag the title? lol post date is cuz I am lazy -->
+		<div class="pre-post">{{post.title}} - {{post.date|date:"r"}</div>
+		<div class="post">{{post.content}}</div>
+	{% endforeach %}
+	</div>
+{% endblock %}
+
