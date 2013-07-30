@@ -9,9 +9,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'StackSmash.views.home', name='home'),
     # url(r'^StackSmash/', include('StackSmash.foo.urls')),
 
-    url(r'^$', include('StackSmash.apps.blog')),
-    url(r'^doc/', include('StackSmash.apps.docs')),
-
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 )
