@@ -22,7 +22,7 @@ def pygmentize(value):
             try: 
                 lexer = lexers.guess_lexer(str(code_string)) 
             except ValueError: 
-                lexer = lexers.PythonLexer() 
+                lexer = lexers.CppLexer() 
         pygmented_string = pygments.highlight(code_string, lexer, formatters.HtmlFormatter()) 
         to_return = to_return + value[last_end:match_obj.start(0)] + pygmented_string 
         last_end = match_obj.end(2) 
