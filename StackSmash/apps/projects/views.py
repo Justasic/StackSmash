@@ -53,7 +53,7 @@ def plaintext(request, path):
 			"fragment": open(filePath).read().replace('\n', '<br>'),
 		},
 	}
-	return render_to_response('docs/docs.html', RequestContext(request, ctx))
+	return render_to_response('docs.html', RequestContext(request, ctx))
 
 
 # Show the document rendered with docutils reStructuredText when the
@@ -93,4 +93,4 @@ def page(request, path):
         }
         cache.set(key, ctx)
 
-    return render_to_response('docs/docs.html', RequestContext(request, ctx))
+    return render_to_response('docs.html', RequestContext(request, ctx))

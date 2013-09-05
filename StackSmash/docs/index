@@ -1,0 +1,10 @@
+Hello from reStructuredText
+===========================
+
++-----------------+
+| It's a Table :D |
++-----------------+
+| har har har     |
++-----------------+
+
+.. sourcecode::" from docutils import nodes from docutils.parsers.rst import directives, Directive "
