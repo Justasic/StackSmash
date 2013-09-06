@@ -6,10 +6,10 @@ from docutils.readers import doctree
 from docutils.io import DocTreeInput, StringOutput
 
 class Post(models.Model):
-	slug = models.SlugField('slug', unique_for_date='pub_date', db_index=True)
 	pub_date = models.DateTimeField(db_index=True)
 	posted_by = models.ForeignKey(User)
 	listed = models.BooleanField('Listed to public?', default=False)
+	slug = models.SlugField('slug', unique_for_date='pub_date', db_index=True)
 	title = models.CharField(max_length=100)
 	content = models.TextField()
 

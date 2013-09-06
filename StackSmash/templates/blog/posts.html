@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
+
 {% block head %}
-	<title>StackSmash - posts</title>
+	<title>StackSmash - Posts</title>
 	<link type="text/css" href="/static/posts.css" rel="stylesheet"></link>
 {% endblock %}
 
@@ -10,7 +11,9 @@
 	<div class="posts">
 	{% for post in posts %}
 		<!-- a tag the title? lol post date is cuz I am lazy -->
-		<div class="pre-post">{{post.title}} - {{post.pub_date|date:"r"}}{#{post.date|date:"r"}#}</div>
+		<div class="pre-post">
+		<a href="{% url 'StackSmash.apps.blog.views.post' post.slug %}">{{post.title}}</a>
+		{{post.pub_date|date:"r"}}</div>
 		<div class="post">{{post.content}}</div>
 	{% endfor %}
 	</div>

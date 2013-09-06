@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>StackSmash - {{post.shorttitle}}</title>
+<title>StackSmash - {{post.title}}</title>
 <link type="text/css"></link>
 {% endblock %}
 
 {% block body %}
-	<div class="pre-post">{{post.title}} - {{post.date|date:"r"}}</div>
+	<div class="pre-post">
+		<div class="post_title">{{post.title}}</div> 
+		<div class="post_date">{{post.pub_date|date:"r"}}</div>
+	</div>
 	<div class="post">{{post.content}}</div>
 {% endblock %}
 
