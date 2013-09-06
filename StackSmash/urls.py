@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     #url(r'^$', include('StackSmash.apps.blog.urls')),
     url(r'^docs/', include('StackSmash.apps.docs.urls')),
     url(r'^blog/', include('StackSmash.apps.blog.urls')),
-    url(r'^projects/', include('StackSmash.apps.projects.urls')),
+    #url(r'^projects/', include('StackSmash.apps.projects.urls')),
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
