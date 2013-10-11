@@ -2,14 +2,17 @@
 
 {% block head %}
 <title>StackSmash - {{post.title}}</title>
-<link type="text/css"></link>
+<link type="text/css" href="/static/post.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-	<div class="pre-post">
-		<div class="post_title">{{post.title}}</div> 
-		<div class="post_date">{{post.pub_date|date:"r"}}</div>
+	<div class="container">
+		<div class="pre-post">
+			<div class="post_title">{{post.title}}</div> 
+			<div class="post_date">{{post.pub_date|date:"r"}} by <b>{{post.posted_by}}</b></div>
+		</div>
+		<hr />
+		<div class="post">{{post.content|linebreaks}}</div>
 	</div>
-	<div class="post">{{post.content}}</div>
 {% endblock %}
 

@@ -79,8 +79,6 @@ def page(request, path):
         if not os.path.isfile(filePath):
             raise Http404("Path: " + filePath)
 
-
-
         ctx = {
             'parts': publish_parts(
                 source = open(filePath).read(),

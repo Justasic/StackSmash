@@ -1,0 +1,56 @@
+body {
+	background-color: #1b1b1b;
+	color: #cbcbcb;
+	font-family: 'Trebuchet MS', 'Lucida sans', Arial;
+	font-size: 12px;
+	margin: 0px;
+}
+
+.header_container {
+	background: #333;
+	border: 1px;
+	solid: #666;
+	height: 30px;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	box-shadow: 4px 4px 10px #000;
+}
+
+.header_container .header {
+	margin-right: 1%;
+	margin-left:  1%;
+	padding: 4px 0;
+	font-size: 18px;
+}
+
+.header_container .header a {
+	color: #336699;
+}
+
+#header_right {
+	float: right;
+	padding: 2px 0;
+	font-size: 12px;
+}
+
+a {
+	color: #225599;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:active {
+	text-decoration: underline;
+}

@@ -1,10 +1,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<link type="text/css" href="/static/base.css" rel="stylesheet">
 {% block head %}
 {% endblock %}
 </head>
 <body>
+<!-- 'Sticky' header bar -->
+	<div class="header_container">
+		<div class="header">
+			<a href="/">Home</a> | 
+			<a href="/blog/">Blog</a> | 
+			<a href="/projects/">Projects</a> | 
+			<a href="/docs/">Documentation</a>
+			<span id="header_right">
+			{% if request.user.is_authenticated %}
+				Welcome, {{ request.user.username }}! <a href="/blog/admin/">Admin</a> / <a href="/blog/admin/logout/">Log out</a>
+			{% else %}
+				Welcome, Anonymous! <a href="/blog/admin/">Login</a>
+			{% endif %}
+			</span>
+		</div>
+	</div>
 {% block body %}
 {% endblock %}
 </body>
