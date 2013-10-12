@@ -11,7 +11,7 @@
 	{% for post in posts %}
 		<!-- a tag the title? lol post date is cuz I am lazy -->
 		<div class="pre-post">
-			<a href="{{ post.get_url|escape }}" id="title">{{post.title}}</a>
+			<a href="{{ post.get_absolute_url|escape }}" id="title">{{post.title}}</a>
 			<div class="post-date">{{post.pub_date|date:"r"}} by <b>{{post.posted_by}}</b></div>
 		</div>
 		<hr />
