@@ -16,5 +16,8 @@ def post(request, year, month, slug):
 	return render(request, 'blog/post.html', {'post': post})
 
 
-def archives(year, month):
-	return HttpResponce('Yay!')
+def archives(request, year, month):
+	return HttpResponse('Yay!')
+
+def about(request):
+	return HttpResponse('Yay!')
