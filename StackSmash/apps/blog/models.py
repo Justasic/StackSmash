@@ -128,44 +128,39 @@ class Post(models.Model):
 	def get_absolute_url(self):
 		return '/blog/%04d/%02d/%s/' % (self.pub_date.year, self.pub_date.month, self.slug)
 
-	def Render(self):
-		key = 'ss.apps.blog.%d' % self.id
+	def render(self):
+		key = 'cia.apps.blog.%d' % self.id
 	#	parts = cache.get(key)
 		parts = False
-	#	sys.stderr.write("Herp")
 		if not parts:
 
-			#parts = publish_parts(
-			#	source = self.content,
-			#	writer_name = "html4css1",
-			#	settings_overrides = {
-			#	    'cloak_email_addresses': True,
-			#	    'initial_header_level': 2,
-			#	},
-			#),
-
+			# Convert the reST markup to a document tree
 			document = publish_doctree(source = self.content)
-			
+
 			visitor = ImageTranslator(document)
 			document.walkabout(visitor)
 
+			#
+			# Publish that document tree as HTML. We can't use any of
+			# the simpler methods in docutils.core, since we need
+			# access to writer.parts
+			#
 			reader = doctree.Reader(parser_name='null')
 			pub = Publisher(reader, None, None,
-					source = DocTreeInput(document),
-					destination_class = StringOutput)
-
+				    source = DocTreeInput(document),
+				    destination_class = StringOutput)
 			pub.set_writer('html4css1')
 			pub.process_programmatic_settings(None, {
-				'cloak_email_addresses' : True,
-				'initial_header_level': 2 },
-				None)
+				'cloak_email_addresses': True,
+				'initial_header_level': 2,
+			}, None)
 
 			pub.publish()
 			parts = pub.writer.parts
-			parts.posted_by = posted_by
+			parts['post'] = self
 
-			#cache.set(key, parts)
-		#return parts;
+			cache.set(key, parts)
+		return parts
 
 
 	class Admin:

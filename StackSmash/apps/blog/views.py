@@ -21,8 +21,13 @@ def post(request, year, month, slug):
 	post = get_object_or_404(Post, slug = slug,
 				 pub_date__year = int(year),
 				 pub_date__month = int(month))
+
+	ctx = RequestContext(request, {
+		'post': post.render(),
+		})
+
 	# Render to template
-	return render(request, 'blog/post.html', {'post': post})
+	return render_to_response('blog/post.html', ctx)
 
 
 def archives(request, year, month):
