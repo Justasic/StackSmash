@@ -38,6 +38,9 @@ class Project(models.Model):
 	def invalidate_cache(self):
 		cache.delete('ss.lib.tag.%d' % self.id) # invalidate for the template tag
 		
+	def get_cache_key(self):
+		return "project.%d" % self.id
+		
 	def save(self):
 		super(Project, self).save()
 		self.invalidate_cache()

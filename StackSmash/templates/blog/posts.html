@@ -16,7 +16,7 @@
 			<div class="post-date">{{post.pub_date|date:"r"}} by <b>{{post.posted_by}}</b></div>
 		</div>
 		<hr />
-		<div class="post">{{post.content|restructuredtextify:post.id|linebreaks}}</div>
+		<div class="post">{{ post.content|restructuredtextify:post|truncatewords_html:60 }}</div>
 	{% endfor %}
 	</div>
 {% endblock %}

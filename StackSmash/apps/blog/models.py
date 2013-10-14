@@ -20,7 +20,10 @@ class Post(models.Model):
 
 	def invalidate_cache(self):
 		cache.delete('ss.apps.blog.%d' % self.id)
-		cache.delete('ss.lib.tag.%d' % self.id) # invalidate for the template tag
+		cache.delete('ss.lib.tag.post.%d' % self.id) # invalidate for the template tag
+		
+	def get_cache_key(self):
+		return "post.%d" % self.id
 		
 	def save(self):
 		super(Post, self).save()
@@ -56,6 +59,11 @@ class Post(models.Model):
 			pub.publish()
 			parts = pub.writer.parts
 			parts['post'] = self
+			
+			parts['fragment'] = parts['fragment'].replace('\n', '<br />')
+			parts['fragment'] = parts['fragment'].replace('<p></p>', '')
+			parts['fragment'] = parts['fragment'].replace('<p>\n</p>', '')
+			parts['fragment'] = parts['fragment'].replace('</p><br /><p>', '</p><p>')
 
 			cache.set(key, parts)
 		return parts

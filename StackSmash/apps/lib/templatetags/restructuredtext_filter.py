@@ -42,9 +42,12 @@ class Pygments(Directive):
 directives.register_directive('sourcecode', Pygments)
 directives.register_directive('code', Pygments)
 
+# This is our restructuredtextify tag to use in templates.
+# The tag accepts an object which MUST have get_cache_key
+# as a callable function!
 @register.filter(name='restructuredtextify', needs_autoescape=True)
 def restructuredtextify(content, slug, autoescape=None):
-	key = 'ss.lib.tag.%d' % slug
+	key = 'ss.lib.tag.%s' % slug.get_cache_key()
 	parts = cache.get(key)
 	if not parts:
 		parts = publish_parts(
@@ -55,5 +58,13 @@ def restructuredtextify(content, slug, autoescape=None):
 				'initial_header_level': 2,
 			},
 		)
+		# XXX: Hacky!!
+		# Because docutils adds its own paragraph tags into shit, this
+		# mess below attempts to correct new lines and <p> tags.
+		parts['fragment'] = parts['fragment'].replace('\n', '<br />')
+		parts['fragment'] = parts['fragment'].replace('<p></p>', '')
+		parts['fragment'] = parts['fragment'].replace('<p>\n</p>', '')
+		parts['fragment'] = parts['fragment'].replace('</p><br /><p>', '</p><p>')
 		cache.set(key, parts)
+	
 	return mark_safe(parts['fragment'])
