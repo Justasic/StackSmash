@@ -1,16 +1,16 @@
 from django.conf.urls import patterns, include, url
-from StackSmash.apps.docs import views
+from StackSmash.apps.projects import views
+
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'StackSmash.views.home', name='home'),
     # url(r'^StackSmash/', include('StackSmash.foo.urls')),
 
-    url(r'^$', views.page, dict(path='')),
-    url(r'^(?P<path>[a-zA-Z0-9_\-]+(/[a-zA-Z0-9_\-]+)*)/$', views.page),
-    url(r'^(?P<path>[a-zA-Z0-9_\-]+\.txt)', views.plaintext),
-    url(r'^(?P<path>[a-zA-Z0-9_\-]+\.rst)', views.page),
+    url(r'^$', views.index),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^(?P<slug>[\w\-]+)/$', views.detail),
 
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
 )

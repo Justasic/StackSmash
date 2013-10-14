@@ -59,36 +59,36 @@ def plaintext(request, path):
 # Show the document rendered with docutils reStructuredText when the
 # file suffix is .rst, otherwise print as plain text.
 def page(request, path):
-    key = 'wiki.doc.page.%s' % (path.replace('/', '.'))
-    ctx = False #cache.get(key)
-    if not ctx:
+	key = 'ss.doc.page.%s' % (path.replace('/', '.'))
+	ctx = cache.get(key)
+	if not ctx:
 
-        filePath = os.path.join(settings.DOC_PATH, path)
+		filePath = os.path.join(settings.DOC_PATH, path)
 
-        # "index" is the document representing its parent
-        # directory. We canonicalize URLs here such that they
-        # never include "index".
-        #
-	# Oops, too far, go back a dir.
-        if os.path.basename(filePath) == 'index':
-            return HttpResponseRedirect("..")
-	# Call the index file if one exists.
-        if os.path.isdir(filePath):
-            filePath = os.path.join(filePath, 'index')
-	# Could not resolve anything, 404.
-        if not os.path.isfile(filePath):
-            raise Http404("Path: " + filePath)
+		# "index" is the document representing its parent
+		# directory. We canonicalize URLs here such that they
+		# never include "index".
+		#
+		# Oops, too far, go back a dir.
+		if os.path.basename(filePath) == 'index':
+			return HttpResponseRedirect("..")
+		# Call the index file if one exists.
+		if os.path.isdir(filePath):
+			filePath = os.path.join(filePath, 'index')
+		# Could not resolve anything, 404.
+		if not os.path.isfile(filePath):
+			raise Http404("Path: " + filePath)
 
-        ctx = {
-            'parts': publish_parts(
-                source = open(filePath).read(),
-                writer_name = "html4css1",
-                settings_overrides = {
-                    'cloak_email_addresses': True,
-                    'initial_header_level': 2,
-                },
-            ),
-        }
-        cache.set(key, ctx)
+		ctx = {
+			'parts': publish_parts(
+				source = open(filePath).read(),
+				writer_name = "html4css1",
+				settings_overrides = {
+					'cloak_email_addresses': True,
+					'initial_header_level': 2,
+				},
+			),
+		}
+		cache.set(key, ctx)
 
-    return render_to_response('docs/docs.html', RequestContext(request, ctx))
+	return render_to_response('docs/docs.html', RequestContext(request, ctx))

@@ -1,0 +1,43 @@
+{% include 'base.html' %}
+
+{% block head %}
+	<title>StackSmash - Projects</title>
+	<link type="text/css" href="/static/projects.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+	<div class="projects">
+	<table>
+	<!-- first set of stuff -->
+	<tr>
+		<th class="project-title">Name</th>
+		<th class="project-shortdesc">Description</th>
+		<th class="project-startdate">Start Date</th>
+		<th class="project-status">Status</th>
+	</tr>
+	
+	{% for project in projects %}
+	
+		<tr>
+			<td class="project-title"><a href="{{project.get_absolute_url|escape}}">{{project.name}}</a></td>
+			<td class="project-shortdesc">{{project.description}}</td>
+			<td class="project-startdate">{{project.start_date|date:"r"}}</td>
+			{% if project.status == 0 %}
+			<td class="project-status">Started / Ongoing</td>
+			{% elif project.status == 1 %}
+			<td class="project-status">Suspended</td>
+			{% elif project.status == 2 %}
+			<td class="project-status">Abandoned</td>
+			{% elif project.status == 3 %}
+			<td class="project-status">Completed - {{project.completion_date|date:"r"}}</td>
+			{% else %}
+			<td class="project-status">Ownership Transfer - no longer maintainer</td>
+			{% endif %}
+		</tr>
+
+	{% endfor %}
+	
+	</table>
+	</div>
+{% endblock %}
+

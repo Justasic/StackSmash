@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load restructuredtext_filter %}
+
+{% block head %}
+	<title>StackSmash - {{project.title}}</title>
+	<link type="text/css" href="/static/project.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="pre-project">
+			<div class="project_title">{{project.name}}</div>
+			<span class="project-desc">{{project.description}}</span> | 
+			<span class="project_date">{{project.start_date|date:"r"}}</span> | 
+			{% if project.status == 0 %}
+			<span class="project-status">Started / Ongoing</span>
+			{% elif project.status == 1 %}
+			<span class="project-status">Suspended</span>
+			{% elif project.status == 2 %}
+			<span class="project-status">Abandoned</span>
+			{% elif project.status == 3 %}
+			<span class="project-status">completed - {{project.completion_date|date:"r"}}</span>
+			{% else %}
+			<span class="project-status">Ownership Transfer - no longer maintainer</span>
+			{% endif %}
+		</div>
+		<hr />
+		<div class="project">{{project.content|restructuredtextify:project.id}}</div>
+	</div>
+{% endblock %}

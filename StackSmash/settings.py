@@ -138,7 +138,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'StackSmash.apps.lib',
     'StackSmash.apps.blog',
+    'StackSmash.apps.projects',
 )
 
 # A sample logging configuration. The only tangible logging

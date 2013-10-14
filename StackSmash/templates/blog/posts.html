@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load restructuredtext_filter %}
 
 {% block head %}
 	<title>StackSmash - Posts</title>
@@ -15,7 +16,7 @@
 			<div class="post-date">{{post.pub_date|date:"r"}} by <b>{{post.posted_by}}</b></div>
 		</div>
 		<hr />
-		<div class="post">{{post.content|linebreaks}}</div>
+		<div class="post">{{post.content|restructuredtextify:post.id|linebreaks}}</div>
 	{% endfor %}
 	</div>
 {% endblock %}
