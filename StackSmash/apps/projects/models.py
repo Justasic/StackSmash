@@ -6,6 +6,14 @@ from docutils.readers import doctree
 from docutils.io import DocTreeInput, StringOutput
 from docutils import nodes
 
+STATUS_CHOICES = (
+	(0, 'started'),
+	(1, 'suspended'),
+	(2, 'abandoned'),
+	(3, 'completed'),
+	(4, 'ownership transfer'),
+)
+
 
 class Project(models.Model):
 	# Name of the project
@@ -20,11 +28,7 @@ class Project(models.Model):
 	# 2 = abandoned
 	# 3 = completed - date
 	# 4 = ownership transfer
-	status = models.PositiveSmallIntegerField('Status', default=0, choices=((0, 'started'),
-										(1, 'suspended'),
-										(2, 'abandoned'),
-										(3, 'completed'),
-										(4, 'ownership transfer'),))
+	status = models.PositiveSmallIntegerField('Status', default=0, choices=STATUS_CHOICES)
 	# The end date of the project (if applicable)
 	completion_date = models.DateTimeField(null=True, blank=True)
 	# Description of the project
@@ -32,11 +36,14 @@ class Project(models.Model):
 	# The actual content on the project
 	content = models.TextField()
 	
+	def __unicode__(self):
+		return self.name
+	
 	def get_absolute_url(self):
 		return '/projects/%s/' % self.slug
 	
 	def invalidate_cache(self):
-		cache.delete('ss.lib.tag.%d' % self.id) # invalidate for the template tag
+		cache.delete('ss.lib.tag.project.%d' % self.id) # invalidate for the template tag
 		
 	def get_cache_key(self):
 		return "project.%d" % self.id

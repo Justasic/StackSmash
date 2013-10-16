@@ -23,7 +23,7 @@ def post(request, year, month, slug):
 				 pub_date__month = int(month))
 
 	ctx = RequestContext(request, {
-		'post': post.render(),
+		'post': post,
 		})
 
 	# Render to template
