@@ -73,6 +73,12 @@ def restructuredtextify(content, slug, autoescape=None):
 		parts['fragment'] = parts['fragment'].replace('<p></p>', '')
 		parts['fragment'] = parts['fragment'].replace('<p>\n</p>', '')
 		parts['fragment'] = parts['fragment'].replace('</p><br /><p>', '</p><p>')
+		parts['fragment'] = parts['fragment'].replace('</p>\n<br /><p>', '</p><p>')
+		parts['fragment'] = parts['fragment'].replace('</p><br />\n<p>', '</p><p>')
+		parts['fragment'] = parts['fragment'].replace('</p>\n<br />\n<p>', '</p><p>')
+		parts['fragment'] = parts['fragment'].replace('</p><br />', '</p>')
+		parts['fragment'] = parts['fragment'].replace('<p><br />', '</p>')
+		parts['fragment'] = parts['fragment'].replace('<br /></pre></div><br /><p>', '</pre></div><p>')
 		cache.set(key, parts)
 	
 	return mark_safe(parts['fragment'])
