@@ -19,14 +19,14 @@ body {
 }
 
 .header_container .header {
-	margin-right: 20%;
+	margin-right: 1%;
 	margin-left:  1%;
 	padding: 4px 0;
 	font-size: 18px;
 }
 
 .header_container .header a {
-	color: #336699;
+	/*color: #336699;*/
 }
 
 #header_right {
@@ -36,7 +36,7 @@ body {
 }
 
 a {
-	color: #225599;
+	color: #0298e3;
 }
 
 a:link {
@@ -53,4 +53,21 @@ a:hover {
 
 a:active {
 	text-decoration: underline;
+}
+
+tt {
+	font-family: Consolas, "Liberation Mono", Courier, monospace;
+	padding: 1px, 5px;
+	border: 1px solid gray;
+	background-color: #484a4b;
+	border-radius: 3px;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(255,255,255,0.75), rgba(0,0,0,0));
+	background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(255,255,255,0.75), rgba(0,0,0,0));
+	background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(255,255,255,0.75), rgba(0,0,0,0));
+	background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(255,255,255,0.75), rgba(0,0,0,0)); 
 }
