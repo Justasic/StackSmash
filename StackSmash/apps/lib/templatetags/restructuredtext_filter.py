@@ -69,6 +69,9 @@ def restructuredtextify(content, slug, autoescape=None):
 		# XXX: Hacky!!
 		# Because docutils adds its own paragraph tags into shit, this
 		# mess below attempts to correct new lines and <p> tags.
+		# Docutils does not fix newlines of entered text in paragraph tags either
+		# and therefore running this through the linebreaksbr tag in the template
+		# causes spacing fuckups. This ugly and awful mess fixes those.
 		parts['fragment'] = parts['fragment'].replace('\n', '<br />')
 		parts['fragment'] = parts['fragment'].replace('<p></p>', '')
 		parts['fragment'] = parts['fragment'].replace('<p>\n</p>', '')
@@ -78,6 +81,9 @@ def restructuredtextify(content, slug, autoescape=None):
 		parts['fragment'] = parts['fragment'].replace('</p>\n<br />\n<p>', '</p><p>')
 		parts['fragment'] = parts['fragment'].replace('</p><br />', '</p>')
 		parts['fragment'] = parts['fragment'].replace('<p><br />', '</p>')
+		parts['fragment'] = parts['fragment'].replace('<br /><li>', '<li>')
+		parts['fragment'] = parts['fragment'].replace('</li><br />', '</li>')
+		parts['fragment'] = parts['fragment'].replace('</ol><br />', '</ol>')
 		parts['fragment'] = parts['fragment'].replace('<br /></pre></div><br /><p>', '</pre></div><p>')
 		cache.set(key, parts)
 	
