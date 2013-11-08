@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'StackSmash.views.home', name='home'),
     # url(r'^StackSmash/', include('StackSmash.foo.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    #url(r'^admin/', include(admin.site.urls)),
     url(r'^about/', 'StackSmash.apps.blog.views.about'),
     url(r'^$', 'StackSmash.apps.blog.views.index'),
     #url(r'^(?P<slug>[\w\-]+)/$', 'StackSmash.apps.blog.views.post'),
