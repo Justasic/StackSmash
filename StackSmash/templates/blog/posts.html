@@ -13,11 +13,29 @@
 		<!-- a tag the title? lol post date is cuz I am lazy -->
 		<div class="pre-post">
 			<a href="{{ post.get_absolute_url|escape }}" id="title">{{post.title}}</a>
-			<div class="post-date">{{post.pub_date|date:"r"}} by <b>{{post.posted_by}}</b></div>
+			<div class="post-date">{{ post.pub_date }} by <b>{{post.posted_by}}</b></div>
 		</div>
 		<hr />
 		<div class="post">{{ post.content|restructuredtextify:post|truncatewords_html:60 }}</div>
 	{% endfor %}
 	</div>
+
+
+	{% if posts.object_list and posts.paginator.num_pages > 1 %}
+		<!-- pagination -->
+		<div class="pagination">
+			{% if posts.has_previous %}
+			 <a href= "?page={{ posts.previous_page_number }}">newer entries &lt;&lt; </a>
+			{% endif %}
+
+			<span class="current">
+			    &nbsp;Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+			</span>
+
+			{% if posts.has_next %}
+			 <a href="?page={{ posts.next_page_number }}"> &gt;&gt; older entries</a>
+			{% endif %}
+		</div>
+	{% endif %}
 {% endblock %}
 

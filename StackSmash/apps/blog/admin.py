@@ -1,5 +1,5 @@
 from django.contrib import admin
-from StackSmash.apps.blog.models import Post
+from StackSmash.apps.blog.models import Post, Comment
 
 class PostAdmin(admin.ModelAdmin):
 	list_display = ['title']
@@ -9,5 +9,8 @@ class PostAdmin(admin.ModelAdmin):
 	save_on_top = True
 	prepopulated_fields = {"slug": ("title",)}
 
-admin.site.register(Post, PostAdmin)
+class CommentAdmin(admin.ModelAdmin):
+	display_fields = ["post", "author", "created"]
 
+admin.site.register(Post, PostAdmin)
+admin.site.register(Comment, CommentAdmin)

@@ -9,11 +9,32 @@
 {% block body %}
 	<div class="container">
 		<div class="pre-post">
-			<div class="post_title">{{post.title}}</div> 
-			<div class="post_date">{{post.pub_date|date:"r"}} by <b>{{post.posted_by}}</b></div>
+			<div class="post_title">{{ post.title }}</div> 
+			<div class="post_date">{{ post.pub_date }} by <b>{{post.posted_by}}</b></div>
 		</div>
 		<hr />
 		<div class="post">{{ post.content|restructuredtextify:post }}</div>
+		<hr />
+		{% if comments %}
+		<p id="comments_text">Comments:</p>
+		<div class="comments">
+			{% for comment in comments %}
+				<div class="comment">
+				<div class="time">{{ comment.created }} | {{ comment.author }}</div>
+				<div class="body">{{ comment.body|linebreaks }}</div>
+				</div>&nbsp;
+			{% endfor %}
+		</div>
+		{% endif %}
+		<div id="addc">Add a comment:</div>
+		<!-- Comment form  -->
+		<form action="{% url 'add_comment' post.id %}" method="POST">{% csrf_token %}
+			<div id="cform">
+				Name: {{ form.author }}
+				<p>{{ form.body }}</p>
+			</div>
+			<div id="submit"><input type="submit" value="Submit"></div>
+		</form>
 	</div>
 {% endblock %}
 
