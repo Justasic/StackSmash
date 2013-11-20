@@ -24,6 +24,7 @@
 		<div class="post">{{ post.content|restructuredtextify:post }}</div>
 		<hr />
 		{% if comments %}
+		<a name="comments"></a>
 		<p id="comments_text">Comments:</p>
 		<div class="comments">
 			{% for comment in comments %}
