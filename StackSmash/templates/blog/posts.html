@@ -7,8 +7,18 @@
 {% endblock %}
 
 {% block body %}
-<!-- not sure what goes here :< -->
+	<div class="sidebar">
+		<p>Archives</p>
+		<hr />
+		{% for month in months %}
+			{% ifchanged month.0 %} {{ month.0 }} <br /> {% endifchanged %}
+			<a href="{% url 'archive' month.0 month.1 %}" id="month">{{ month.2 }}</a><br />
+		{% endfor %}
+	</div>
 	<div class="posts">
+	{% if not posts %}
+		<center><h2>Sorry. No posts found :(</h2></center>
+	{% endif %}
 	{% for post in posts %}
 		<!-- a tag the title? lol post date is cuz I am lazy -->
 		<div class="pre-post">
@@ -21,7 +31,7 @@
 	</div>
 
 
-	{% if posts.object_list and posts.paginator.num_pages > 1 %}
+	{% if not archive and posts.object_list and posts.paginator.num_pages > 1 %}
 		<!-- pagination -->
 		<div class="pagination">
 			{% if posts.has_previous %}

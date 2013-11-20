@@ -13,3 +13,16 @@
 	font-size: 75%;
 	color: #888;
 }
+
+.sidebar {
+	border: 1px solid #333;
+	padding: 10px;
+/*	margin: 0.6em;*/
+	position: fixed;
+	right: 1%;
+	top: 10%;
+}
+
+#month {
+	margin: 0.6em;
+}

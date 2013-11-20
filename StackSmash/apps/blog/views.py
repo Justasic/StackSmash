@@ -7,11 +7,34 @@ from django.core.urlresolvers import reverse
 from StackSmash.apps.blog.models import Post, Comment
 from StackSmash.apps.docs.views import page
 from django import forms
+import time
+from calendar import month_name
 
 class CommentForm(forms.ModelForm):
 	class Meta:
 		model = Comment
 		exclude = ["post"]
+
+def make_archive_list():
+	if not Post.objects.count():
+		return []
+
+	year, month = time.localtime()[:2]
+	first = Post.objects.order_by("pub_date")[0]
+	fyear = first.pub_date.year
+	fmonth = first.pub_date.month
+	months = []
+
+	for y in range(year, fyear-1, -1):
+		start, end = 12, 0
+		if y == year:
+			start = month
+		if y == fyear:
+			end = fmonth-1
+
+		for m in range(start, end, -1):
+			months.append((y, m, month_name[m]))
+	return months
 
 def index(request):
 	# get the blog posts that are published, order by date
@@ -31,11 +54,24 @@ def index(request):
 
 	ctx = RequestContext(request, {
 		'posts': posts,
+		'months': make_archive_list(),
+		'archive': False,
 		})
 
 	# render to template
 	return render_to_response('blog/posts.html', ctx)
 
+
+def archive(request, year, month):
+	"""Monthly archive."""
+	posts = Post.objects.filter(pub_date__year=year, pub_date__month=month)
+	ctx = RequestContext(request, {
+		'posts': posts,
+		'months': make_archive_list(),
+		'archive': True,
+		})
+
+	return render_to_response("blog/posts.html", ctx)
 
 def post(request, year, month, slug):
 	# Get post object
@@ -53,14 +89,11 @@ def post(request, year, month, slug):
 		'post': post,
 		'comments': comments,
 		'form': CommentForm(initial={'author': username}),
+		'months': make_archive_list(),
 		})
 
 	# Render to template
 	return render_to_response('blog/post.html', ctx)
-
-# To do..
-def archives(request, year, month):
-	return HttpResponse('Yay!')
 
 def add_comment(request, pk):
 	"""Add a new comment."""
