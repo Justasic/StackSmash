@@ -84,6 +84,8 @@ def post(request, year, month, slug):
 	username = None
 	if request.user.is_authenticated():
 		username = request.user.username
+	else
+		username = "Anonymous"
 
 	ctx = RequestContext(request, {
 		'post': post,
