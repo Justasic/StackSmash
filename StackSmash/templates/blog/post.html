@@ -8,6 +8,12 @@
 
 {% block body %}
 	<div class="sidebar">
+		{% if request.user.is_staff %}
+			<p>Staff Options</p>
+			<hr />
+			<a href="/admin/blog/post/add/">New Post</a><br />
+			<a href="/upload/">Upload a file</a>
+		{% endif %}
 		<p>Archives</p>
 		<hr />
 		{% for month in months %}
@@ -27,12 +33,27 @@
 		<a name="comments"></a>
 		<p id="comments_text">Comments:</p>
 		<div class="comments">
+			{% if request.user.is_staff %}
+			<form action="{% url 'delete_comment1' post.pk %}" method="POST">{% csrf_token %}
+			{% endif %}
 			{% for comment in comments %}
 				<div class="comment">
-				<div class="time">{{ comment.created }} | {{ comment.author }}</div>
+				<div class="time">
+				{{ comment.created }} | {{ comment.author }}
+				{% if request.user.is_staff %}
+					<div class="delete_class">
+				 	<input type="checkbox" name="delete" value="{{ comment.pk }}">
+					<a href="{% url 'delete_comment2' post.pk comment.id %}">X</a>
+					</div>
+				{% endif %}
+				</div>
 				<div class="body">{{ comment.body|linebreaks }}</div>
 				</div>&nbsp;
 			{% endfor %}
+			{% if request.user.is_staff %}
+				<p><input type="submit" value="Delete all selected"></p>
+				</form>
+			{% endif %}
 		</div>
 		{% endif %}
 		<div id="addc">Add a comment:</div>

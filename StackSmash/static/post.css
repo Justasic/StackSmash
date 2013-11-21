@@ -35,6 +35,15 @@
 	color: #888;
 }
 
+.comment .body {
+	padding-left: 10px;
+}
+
+.comment .delete_class {
+	float: right;
+	font-size: 180%;
+}
+
 #addc {
 	padding-bottom: 8px;
 }

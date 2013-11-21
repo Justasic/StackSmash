@@ -13,12 +13,10 @@
 			<a href="/">Home</a> | 
 			<a href="/blog/">Blog</a> | 
 			<a href="/projects/">Projects</a> | 
-			<a href="/docs/">Documentation</a> | 
+			<a href="/docs/">Documents</a> | 
 			<a href="http://git.stacksmash.net/">Git</a> | 
+			<a href="http://cia.stacksmash.net/">CIA.vc</a> | 
 			<a href="/blog/about/">About Me</a>
-			{% if request.user.is_superuser %}
-			 | <a href="/upload/">Upload a file</a>
-			{% endif %}
 			<span id="header_right">
 			{% if request.user.is_authenticated %}
 				Welcome, {{ request.user.username }}! <a href="/admin/">Admin</a> / <a href="/admin/logout/">Log out</a>

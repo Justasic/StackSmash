@@ -84,7 +84,7 @@ def post(request, year, month, slug):
 	username = None
 	if request.user.is_authenticated():
 		username = request.user.username
-	else
+	else:
 		username = "Anonymous"
 
 	ctx = RequestContext(request, {
@@ -114,7 +114,20 @@ def add_comment(request, pk):
 		comment = cf.save(commit=False)
 		comment.author = author
 		comment.save()
-		return HttpResponseRedirect(reverse("post", args=(post.pub_date.year, post.pub_date.month, post.slug,)))
+		return HttpResponseRedirect(reverse("post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+
+def delete_comment(request, post_pk, pk=None):
+	"""Delete comment(s) with primary key `pk` or with pks in POST."""
+	if request.user.is_staff:
+		if not pk:
+			pklst = request.POST.getlist("delete")
+		else:
+			pklst = [pk]
+
+		post = Post.objects.get(pk=post_pk)
+		for pk in pklst:
+		    Comment.objects.get(pk=pk).delete()
+		return HttpResponseRedirect(reverse("post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
 
 def about(request):
 	# just use the docs view from docs/, it's much easier than making a custom view

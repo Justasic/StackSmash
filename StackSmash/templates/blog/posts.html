@@ -8,6 +8,12 @@
 
 {% block body %}
 	<div class="sidebar">
+		{% if request.user.is_staff %}
+			<p>Staff Options</p>
+			<hr />
+			<a href="/admin/blog/post/add/">New Post</a><br />
+			<a href="/upload/">Upload a file</a>
+		{% endif %}
 		<p>Archives</p>
 		<hr />
 		{% for month in months %}
