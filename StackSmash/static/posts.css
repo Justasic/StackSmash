@@ -18,6 +18,7 @@
 	font-size: 120%;
 	border: 1px solid #333;
 	padding: 10px;
+	box-shadow: 2px 2px 3px #111;
 /*	margin: 0.6em;*/
 	position: fixed;
 	right: 1%;
