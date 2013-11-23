@@ -36,7 +36,7 @@ class Comment(models.Model):
 	post = models.ForeignKey(Post)
 
 	def __unicode__(self):
-		return unicode("%s: %s" % (self.post, self.body[:60]))
+		return str("%s: %s" % (self.post, self.body[:60]))
 
 	class Admin:
 		pass
