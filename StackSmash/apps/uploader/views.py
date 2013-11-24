@@ -10,7 +10,7 @@ from StackSmash.apps.uploader.forms import DocumentForm
 def list(request):
     # Make sure the user is authenticated and able to modify the blog
     if not request.user.is_superuser:
-	raise Http404
+        raise Http404
 
     # Handle file upload
     if request.method == 'POST':
