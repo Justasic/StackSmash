@@ -7,6 +7,9 @@
 #
 # Use PYTHONPATH=<StackSmash dir to manage.py> ./db_cleanup.py
 #
+# Cronjob to run on the 12th hour of every day:
+# * 12 * * * PYTHONPATH=/StackSmash /StackSmash/db_cleanup.py
+#
 
 import os, datetime
 
@@ -19,14 +22,6 @@ def clean_up():
 	
 	# if comments are not listed and older than a week, delete them.
 	Comment.objects.filter(listed=False, created__lt = datetime.datetime.now() - datetime.timedelta(days=7)).delete()
-
-#       comments = Comment.objects.filter(listed=False).order_by("created")
-
-       # If comments are older than a day, delete them.
-#       for comment in comments:
-#               if comment.created.day < datetime.datetime.now().day:
-#                       Comment.objects.filter(listed=False, id=comment.id).delete()
-
 
 if __name__ == "__main__":
        clean_up()
