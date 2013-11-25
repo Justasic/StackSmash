@@ -11,7 +11,10 @@
 		{% if documents %}
 			<ul>
 			{% for document in documents %}
-				<li><a href="{{ document.docfile.url }}">/media/{{ document.docfile.name }}</a></li>
+				<li>
+					<a href="{{ document.docfile.url }}">/media/{{ document.docfile.name }}</a> - 
+					<a href="{% url 'delete' document.pk %}">delete</a>
+				</li>
 			{% endfor %}
 			</ul>
 		{% else %}
