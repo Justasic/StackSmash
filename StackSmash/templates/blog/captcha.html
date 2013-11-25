@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>StackSmash - {{post.title}} - Captcha</title>
+<link type="text/css" href="/static/docs.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+<div class="document">
+	<center>
+	<h2>Please verify you're a human</h2>
+	<script type="text/javascript">
+		var RecaptchaOptions = {
+			theme : 'blackglass'
+		};
+	</script>
+	<form  action="{% url "captcha_verify" post.pk comment.pk %}" method="POST">{% csrf_token %}
+	<span class="validation_error">{{ captcha_response }}</span>
+	<script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k={{ google_captcha_api_key }}"></script>
+	<noscript>
+		<iframe src="http://www.google.com/recaptcha/api/noscript?k={{ google_captcha_api_key }}" height="300" width="500" frameborder="0"></iframe>
+		<br />
+		<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+		<input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+	</noscript>
+	<br />
+	<input type="submit" value="Submit">
+	</form>
+	</center>
+</div>
+{% endblock %}
