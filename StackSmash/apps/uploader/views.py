@@ -33,3 +33,11 @@ def list(request):
         {'documents': documents, 'form': form},
         context_instance=RequestContext(request)
     )
+
+def delete(request, pk):
+	# Make sure the user is authenticated and able to modify the blog
+	if not request.user.is_superuser:
+		raise Http404
+
+	Document.objects.filter(pk=pk).delete()
+	return	HttpResponseRedirect(reverse('list'))
