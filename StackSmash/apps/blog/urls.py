@@ -1,14 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-# Uncomment the next two lines to enable the admin:
-#from django.contrib import admin
-#admin.autodiscover()
-
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'StackSmash.views.home', name='home'),
-    # url(r'^StackSmash/', include('StackSmash.foo.urls')),
-    #url(r'^admin/', include(admin.site.urls)),
     url(r'^about/', 'StackSmash.apps.blog.views.about'),
     url(r"^add_comment/(\d+)/$", "StackSmash.apps.blog.views.add_comment", name='add_comment'),
     url(r'^$', 'StackSmash.apps.blog.views.index'),
@@ -16,9 +8,8 @@ urlpatterns = patterns('',
     url(r"^archive/(\d+)/(\d+)/$", "StackSmash.apps.blog.views.archive", name='archive'),
     url(r"^delete_comment/(\d+)/$", "StackSmash.apps.blog.views.delete_comment", name="delete_comment1"),
     url(r"^delete_comment/(\d+)/(\d+)/$", "StackSmash.apps.blog.views.delete_comment", name="delete_comment2"),
-#    url(r'^(?P<year>\d{4})/(?P<month>\d{2})/$', 'StackSmash.apps.blog.views.archives'),
+    url(r"^captcha/(\d+)/(\d+)/$", "StackSmash.apps.blog.views.captcha_check", name="captcha"),
+    url(r"^captcha/verify/(\d+)/(\d+)/$", "StackSmash.apps.blog.views.captcha_verify", name="captcha_verify"),
 #    url(r'^$', 'archive', {'num_latest': 15}),
 
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
 )

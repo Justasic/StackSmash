@@ -8,7 +8,7 @@ admin.autodiscover()
 # Just redirect / to /blog for now until I can
 # come up with something to put on the homepage..
 def to_blog(request):
-	return redirect('/blog/', permanent=False)
+    return redirect('/blog/', permanent=False)
 
 urlpatterns = patterns('',
     # Examples:

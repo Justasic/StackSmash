@@ -4,11 +4,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.context import RequestContext
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from StackSmash.apps.blog.models import Post, Comment
 from StackSmash.apps.docs.views import page
 from django import forms
 import time
 from calendar import month_name
+from recaptcha.client import captcha
 
 class CommentForm(forms.ModelForm):
 	class Meta:
@@ -79,7 +81,7 @@ def post(request, year, month, slug):
 				 pub_date__year = int(year),
 				 pub_date__month = int(month))
 
-	comments = Comment.objects.filter(post=post)
+	comments = Comment.objects.filter(post=post, listed=True)
 
 	username = None
 	if request.user.is_authenticated():
@@ -113,8 +115,63 @@ def add_comment(request, pk):
 
 		comment = cf.save(commit=False)
 		comment.author = author
+
+		if request.user.is_authenticated():
+			comment.listed = True
+
+		comment.save()
+		
+		if request.user.is_authenticated():
+			return HttpResponseRedirect(reverse("post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+		else:
+			return HttpResponseRedirect(reverse("captcha", args=(post.pk, int(comment.pk),)))
+
+def captcha_check(request, post_pk, pk):
+	""" Force a captcha check to prevent spam from comments.
+	    If the user is logged in (eg. me), auto-approve the
+	    comment and let it be posted, otherwise force the user
+	    to answer the captcha or have the post deleted. """
+	post = Post.objects.get(pk=post_pk)
+	comment = Comment.objects.get(pk=pk)
+	if request.user.is_authenticated():
+		if not comment.listed:
+			comment.listed = True
+			comment.save()
+		return HttpResponseRedirect(reverse("post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+	else:
+		ctx = RequestContext(request, {
+		'google_captcha_api_key': settings.GOOGLE_CAPTCHA_PUBLIC_API_KEY,
+		'post': post,
+		'comment': comment,
+		})
+
+	return render_to_response('blog/captcha.html', ctx)
+		
+
+def captcha_verify(request, post_pk, pk):
+	""" Verify the captcha response. If it is invalid,
+	    inform the user. Otherwise allow the post to be listed. """
+	post = Post.objects.get(pk=post_pk)
+	comment = Comment.objects.get(pk=pk)
+
+	response = captcha.submit(
+		request.POST.get('recaptcha_challenge_field'),
+		request.POST.get('recaptcha_response_field'),
+		settings.GOOGLE_CAPTCHA_PRIVATE_API_KEY,
+		request.META['REMOTE_ADDR'],)
+
+	if response.is_valid:
+		comment.listed = True
 		comment.save()
 		return HttpResponseRedirect(reverse("post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+	else:
+		ctx = RequestContext(request, {
+		'google_captcha_api_key': settings.GOOGLE_CAPTCHA_PUBLIC_API_KEY,
+		'post': post,
+		'comment': comment,
+		'captcha_response': "Invalid Captcha.",
+		})
+		return render_to_response('blog/captcha.html', ctx)
 
 def delete_comment(request, post_pk, pk=None):
 	"""Delete comment(s) with primary key `pk` or with pks in POST."""

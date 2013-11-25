@@ -93,6 +93,10 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'ouo6whx55y+na6co_tmwpowic(uzb6opbvn9@aez3=f+j7fs$5'
 
+# Google Captcha API key
+GOOGLE_CAPTCHA_PUBLIC_API_KEY = ''
+GOOGLE_CAPTCHA_PRIVATE_API_KEY = ''
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',

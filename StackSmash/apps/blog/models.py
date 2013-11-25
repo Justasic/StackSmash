@@ -33,6 +33,7 @@ class Comment(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	author = models.CharField(max_length=60)
 	body = models.TextField()
+	listed = models.BooleanField(default=False)
 	post = models.ForeignKey(Post)
 
 	def __unicode__(self):
