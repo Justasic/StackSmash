@@ -8,22 +8,24 @@ To install:
 
 Generic:
 --------
-1. install python 2.7.*
+1. install python 2.7.* or python 3.*
 2. go to djangoproject.org and download the latest version, setup, and install or use python pip to install it (also on django's download page)
-3. install docutils and pygments (pip install pygments && pip install docutils)
+3. install docutils, pygments, and recaptcha-client (pip install pygments && pip install docutils && pip install recaptcha-client)
 4. install your favorite database software (I use PostgreSQL)
-5. setup the settings.py file for your specific installation as well as generate a new django secret (you can use `this site`_ for a new secret)
-6. Run ``./manage.py syncdb`` to initialize the database with the needed tables
+5. setup the settings.py file for your specific installation
+6. Create the file ~/.django_secret and generate a new django secret (you can use `this site`_ for a new secret)
+7. Create the file ~/.django_db and setup your db settings. the following are available:
+	user=<username>
+	passwd=<password>
+	host=<hostname of database server - optional>
+	port=<port of database server - optional>
+8. Run ``./manage.py syncdb`` to initialize the database with the needed tables
 
 Ubuntu/Debian:
 --------------
-1. sudo apt-get install python python-pygments python-docutils
-
+1. sudo apt-get install python python-pygments python-docutils python-recaptcha-client
 2. go to djangoproject.org and download the latest version, setup, and install or use python pip to install it (also on django's download page)
-3. install your favorite database software (I use PostgreSQL)
-4. setup the settings.py file for your specific installation as well as generate a new django secret (you can use `this site`_ for a new secret)
-5. Run ``./manage.py syncdb`` to initialize the database with the needed tables
-
+3. follow steps 4 to 8 above
 
 .. _`this site`: http://www.miniwebtool.com/django-secret-key-generator/
 
