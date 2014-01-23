@@ -1,12 +1,10 @@
 .pre-post .post_title {
 	font-size: 200%;
-/*	color: #225599;*/
-/*	color: #0298e3;*/
 	color: #06c67b;
 }
 
 .container {
-	padding: 40px 0;
+	padding: 67px 0;
 	margin-right: 20%;
 	margin-left: 1%;
 }
@@ -60,7 +58,7 @@
 /*	margin: 0.6em;*/
 	position: fixed;
 	right: 1%;
-	top: 10%;
+	top: 15%;
 }
 
 #month {

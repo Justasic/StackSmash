@@ -7,6 +7,16 @@ TEMPLATE_DEBUG = DEBUG
 def rel_path(p):
 	return os.path.join(os.path.abspath(os.path.split(__file__)[0]), p)
 
+DB_SETTINGS = {}
+for line in open(os.path.expanduser('~/.django_db')):
+    line = line.strip()
+    try:
+        key, value = line.split('=', 1)
+        DB_SETTINGS[key.strip()] = value.strip()
+    except ValueError:
+        pass
+
+
 DOC_PATH = rel_path("docs")
 
 ADMINS = (
@@ -19,12 +29,11 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'stacksmash',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': 'justasic',
-        'PASSWORD': 'letmein',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'NAME': DB_SETTINGS.get('db', 'stacksmash'),
+        'USER': DB_SETTINGS.get('user', 'stacksmash'),
+        'PASSWORD': DB_SETTINGS.get('passwd', ''),
+        'HOST': DB_SETTINGS.get('host', ''),                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': DB_SETTINGS.get('port', ''),                      # Set to empty string for default.
     }
 }
 
@@ -91,11 +100,11 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'ouo6whx55y+na6co_tmwpowic(uzb6opbvn9@aez3=f+j7fs$5'
+SECRET_KEY = open(os.path.expanduser('~/.django_secret')).read().strip()
 
 # Google Captcha API key
-GOOGLE_CAPTCHA_PUBLIC_API_KEY = ''
-GOOGLE_CAPTCHA_PRIVATE_API_KEY = ''
+GOOGLE_CAPTCHA_PUBLIC_API_KEY = '6Lcmy-oSAAAAAPwospkkCRDFlqScVa3L7lG4CCui'
+GOOGLE_CAPTCHA_PRIVATE_API_KEY = '6Lcmy-oSAAAAAJsYByU4D0TZj6n49bBap303EBze'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
