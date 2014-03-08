@@ -1,41 +1,32 @@
+__author__ = 'justasic'
+
 # Django settings for StackSmash project.
 import os
+from django.core.exceptions import ImproperlyConfigured
 
-DEBUG = True
+# Always assume Debug is false for non-production.
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+# Some useful functions.
 def rel_path(p):
-	return os.path.join(os.path.abspath(os.path.split(__file__)[0]), p)
-
-DB_SETTINGS = {}
-for line in open(os.path.expanduser('~/.django_db')):
-    line = line.strip()
-    try:
-        key, value = line.split('=', 1)
-        DB_SETTINGS[key.strip()] = value.strip()
-    except ValueError:
-        pass
+    return os.path.join(os.path.abspath(os.path.split(__file__)[0]), p)
 
 
 DOC_PATH = rel_path("docs")
 
+def get_env_variable(var_name):
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = "Set the %s environment variable" % var_name
+        raise ImproperlyConfigured(error_msg)
+
+
+# This should be set in your own production file
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
-      ('Justin Crawford', 'Justasic@gmail.com'),
 )
-
-MANAGERS = ADMINS
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': DB_SETTINGS.get('db', 'stacksmash'),
-        'USER': DB_SETTINGS.get('user', 'stacksmash'),
-        'PASSWORD': DB_SETTINGS.get('passwd', ''),
-        'HOST': DB_SETTINGS.get('host', ''),                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': DB_SETTINGS.get('port', ''),                      # Set to empty string for default.
-    }
-}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -51,8 +42,6 @@ TIME_ZONE = 'America/Los_Angeles'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID = 1
-
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
@@ -63,10 +52,6 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
-
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/var/www/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -88,7 +73,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    rel_path('static'),
+    rel_path('../static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -100,7 +85,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = open(os.path.expanduser('~/.django_secret')).read().strip()
+SECRET_KEY = get_env_variable("DJANGO_SECRET_KEY") #'ouo6whx55y+na6co_tmwpowic(uzb6opbvn9@aez3=f+j7fs$5'
 
 # Google Captcha API key
 GOOGLE_CAPTCHA_PUBLIC_API_KEY = '6Lcmy-oSAAAAAPwospkkCRDFlqScVa3L7lG4CCui'
@@ -137,7 +122,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    rel_path('templates'),
+    rel_path('../templates'),
 )
 
 INSTALLED_APPS = (
@@ -148,6 +133,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',

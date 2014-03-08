@@ -64,6 +64,7 @@ def restructuredtextify(content, slug, autoescape=None):
 			settings_overrides = {
 				'cloak_email_addresses': True,
 				'initial_header_level': 2,
+				'raw_enabled': True,
 			},
 		)
 		# XXX: Hacky!!

@@ -1,0 +1,6 @@
+Django
+django-admin-bootstrapped
+psycopg2
+pygments
+docutils
+recaptcha

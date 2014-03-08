@@ -1,0 +1,6 @@
+
+# Include our dev file
+-r dev.txt
+
+# Add some used libraries for me
+django-debug-toolbar
