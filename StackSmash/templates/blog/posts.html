@@ -6,7 +6,12 @@
 	<link type="text/css" href="{% static 'posts.css' %}" rel="stylesheet">
 {% endblock %}
 
+
+
+
+
 {% block body %}
+
 	<div class="sidebar">
 		{% if request.user.is_staff %}
 			<p>Staff Options</p>
@@ -34,6 +39,42 @@
 		<div class="post">{{ post.content|restructuredtextify:post|truncatewords_html:60 }}</div>
 	{% endfor %}
 	</div>
+
+    {% comment %}
+    <center>
+    <table width="90%" height="100%">
+        <center>
+            <tbody>
+            <tr>
+
+            <td valign="top">
+                <div class="posts">
+                    <div class="pre-post">
+                        <a href="/blog/2014/04/chicken-noodle-soup/" id="title">Chicken Noodle Soup</a>
+                        <div class="post-date">April 10, 2014, 9:17 p.m. by <b>Justasic</b> | <a href="/blog/2014/04/chicken-noodle-soup/#comments">6 comments</a></div>
+                    </div>
+                    <hr />
+                    <div class="post"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et consectetur odio, ut sollicitudin lorem. Sed justo tortor, varius ut libero sed, aliquet sollicitudin erat. Nulla commodo consequat metus, quis tempus ante. Sed facilisis lorem non bibendum fermentum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus ut tellus bibendum, ornare orci sit amet, suscipit ipsum. Nulla blandit ...</p></div>
+                    </div>
+            </td>
+            </center>
+            <td valign="top" width="20%">
+                <center>
+                    <div class="sidebar">
+                        <p>Archives</p>
+                        <hr />
+                         2014<br />
+                        <a href="/blog/archive/2014/4/" id="month">April</a><br />
+                    </div>
+                </center>
+                </table>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    </center>
+    {% endcomment %}
 
 
 	{% if not archive and posts.object_list and posts.paginator.num_pages > 1 %}

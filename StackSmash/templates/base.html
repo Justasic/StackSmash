@@ -6,56 +6,43 @@
 <link type="text/css" href="{% static 'base.css' %}" rel="stylesheet">
 <link type="text/css" href="{% static 'syntax_highlighting.css' %}" rel="stylesheet">
 <link type="text/css" href="{% static 'lavalamp.css' %}" rel="stylesheet">
-<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/jquery.lavalamp.min.js' %}"></script>
 <link rel="shortcut icon" type="image/ico" href="/favicon.ico">
 {% block head %}
 {% endblock %}
 </head>
 <body>
 <!-- 'Sticky' header bar -->
-
-	<!--<div class="header_container">
-		<div class="header">-->
-
-        <div class="topbar">
-
-
-          <ul class="lavaLampWithImage" id="lava_menu">
-
+<div class="header_container">
+    <div class="login">
+    {% if request.user.is_authenticated %}
+        Welcome, {{ request.user.username }}!
+        <div class="adminlinks"><a href="/admin/">Admin</a> / <a href="/admin/logout/">Log out</a></div>
+    {% else %}
+        Welcome, Anonymous!
+        <div class="adminlinks"><a href="/admin/">Login</a></div>
+    {% endif %}
+    </div>
+    <div class="header">
+        <ul class="lavaLampWithImage" id="lava_menu">
             <div class="cancel"><a href="{% url 'index' %}"><img id="icon" src="{% static 'processor-32.png' %}" /></a></div>
-                <div class="minipad"></div>
-            <li><a href="{% url 'blog:index' %}">Blog</a></li>
-			<li><a href="{% url 'projects:index' %}">Projects</a></li>
-			<li><a href="http://git.stacksmash.net/">Git</a></li>
-			<li><a href="http://cia.stacksmash.net/">CIA.vc</a></li>
-            <li><a href="/about/">About Me</a></li>
-
-
-
-            <div class="login">
-			{% if request.user.is_authenticated %}
-				Welcome, {{ request.user.username }}! <a href="/admin/">Admin</a> / <a href="/admin/logout/">Log out</a>
-			{% else %}
-			Welcome, Anonymous!<a href="/admin/">Login</a>
-			{% endif %}
-			</div>
-
-
-		   </ul>
+            <div class="menuitems">
+                <li><a href="{% url 'blog:index' %}">Blog</a></li>
+                <li><a href="{% url 'projects:index' %}">Projects</a></li>
+                <li><a href="http://git.stacksmash.net/">Git</a></li>
+                <li><a href="http://cia.stacksmash.net/">CIA.vc</a></li>
+                <li><a href="/about/">About Me</a></li>
+            </div>
+        </ul>
+    </div>
 
 </div>
-
-
-
-
-	<!--</div>-->
 {% block body %}
 {% endblock %}
 </body>
 
-
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.lavalamp.min.js' %}"></script>
 <script type="text/javascript">
     $(function() {
       $("#lava_menu").lavaLamp({

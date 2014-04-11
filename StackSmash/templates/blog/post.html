@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block body %}
+    <!-- sidebar -->
 	<div class="sidebar">
 		{% if request.user.is_staff %}
 			<p>Staff Options</p>
@@ -21,6 +22,8 @@
 			<a href="{% url 'blog:archive' month.0 month.1 %}" id="month">{{ month.2 }}</a><br />
 		{% endfor %}
 	</div>
+
+    <!-- Container -->
 	<div class="container">
 		<div class="pre-post">
 			<div class="post_title">{{ post.title }}</div> 
@@ -29,6 +32,8 @@
 		<hr />
 		<div class="post">{{ post.content|restructuredtextify:post }}</div>
 		<hr />
+
+        <!-- comments -->
 		{% if comments %}
 		<a name="comments"></a>
 		<p id="comments_text">Comments:</p>
