@@ -28,7 +28,7 @@ class Post(models.Model):
         return '/blog/%04d/%02d/%s/' % (self.pub_date.year, self.pub_date.month, self.slug)
 
     def GetCommentCount(self):
-        return Comment.objects.filter(listed=True).count()
+        return Comment.objects.filter(listed=True, post=self).count()
 
     class Admin:
         pass
