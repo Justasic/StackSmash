@@ -130,7 +130,14 @@ def add_comment(request, pk):
         comment.save()
 
         if request.user.is_authenticated():
-            return HttpResponseRedirect(reverse("blog:post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+            # I would have loved to use reverse() but it refuses to resolve named urls
+            # so I use this nasty hack instead.
+            return HttpResponseRedirect(reverse('blog:index') + '%d/%.2d/%s/#comments' %
+                                        (post.pub_date.year, post.pub_date.month, post.slug))
+            #return HttpResponseRedirect(reverse("blog:post", kwargs={
+            #    'year': post.pub_date.year,
+            #    'month': post.pub_date.month,
+            #    'slug': post.slug}) + '#comments')
         else:
             return HttpResponseRedirect(reverse("blog:captcha", args=(post.pk, int(comment.pk),)))
 
@@ -146,7 +153,8 @@ def captcha_check(request, post_pk, pk):
         if not comment.listed:
             comment.listed = True
             comment.save()
-        return HttpResponseRedirect(reverse("blog:post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+        return HttpResponseRedirect(reverse('blog:index') + '%d/%.2d/%s/#comments' %
+                                    (post.pub_date.year, post.pub_date.month, post.slug))
     else:
         ctx = RequestContext(request, {
         'google_captcha_api_key': settings.GOOGLE_CAPTCHA_PUBLIC_API_KEY,
@@ -172,7 +180,8 @@ def captcha_verify(request, post_pk, pk):
     if response.is_valid:
         comment.listed = True
         comment.save()
-        return HttpResponseRedirect(reverse("blog:post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+        return HttpResponseRedirect(reverse('blog:index') + '%d/%.2d/%s/#comments' %
+                                    (post.pub_date.year, post.pub_date.month, post.slug))
     else:
         ctx = RequestContext(request, {
             'google_captcha_api_key': settings.GOOGLE_CAPTCHA_PUBLIC_API_KEY,
@@ -194,7 +203,8 @@ def delete_comment(request, post_pk, pk=None):
         post = Post.objects.get(pk=post_pk)
         for pk in pklst:
             Comment.objects.get(pk=pk).delete()
-        return HttpResponseRedirect(reverse("blog:post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+        return HttpResponseRedirect(reverse('blog:index') + '%d/%.2d/%s/#comments' %
+                                    (post.pub_date.year, post.pub_date.month, post.slug))
 
 
 def about(request):
