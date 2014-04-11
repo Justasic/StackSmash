@@ -21,7 +21,7 @@ def list(request):
             newdoc.save()
 
             # Redirect to the document list after POST
-            return HttpResponseRedirect(reverse('StackSmash.apps.uploader.views.list'))
+            return HttpResponseRedirect(reverse('upload:list'))
     else:
         form = DocumentForm()  # A empty, unbound form
 

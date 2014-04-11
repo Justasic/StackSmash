@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template.context import RequestContext
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
@@ -80,13 +80,14 @@ def archive(request, year, month):
 
 
 def post(request, year, month, slug):
-    # Only allow non-listed posts to be viewed if you're not authenticated.
-    listed = not request.user.is_authenticated()
     # Get post object
     post = get_object_or_404(Post, slug=slug,
                              pub_date__year=int(year),
-                             pub_date__month=int(month),
-                             listed=listed)
+                             pub_date__month=int(month))
+
+        # Only allow non-listed posts to be viewed if you're not authenticated.
+    if not request.user.is_authenticated() and not post.listed:
+        raise Http404
 
     comments = Comment.objects.filter(post=post, listed=True)
 
