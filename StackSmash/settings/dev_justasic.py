@@ -8,6 +8,9 @@ __author__ = 'justasic'
 
 from .dev import *
 
+# Our settings key
+SECRET_KEY = 'ouo6whx55y+na6co_tmwpowic(uzb6opbvn9@aez3=f+j7fs$5'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.

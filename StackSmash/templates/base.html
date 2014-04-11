@@ -13,11 +13,10 @@
 		<div class="header">
 			<a href="/"><img id="icon" src="/static/processor-32.png"></img></a> 
 			<a href="/blog/">Blog</a> | 
-			<a href="/projects/">Projects</a> | 
-			<a href="/docs/">Documents</a> | 
+			<a href="/projects/">Projects</a> |
 			<a href="http://git.stacksmash.net/">Git</a> | 
 			<a href="http://cia.stacksmash.net/">CIA.vc</a> | 
-			<a href="/blog/about/">About Me</a>
+			<a href="/about/">About Me</a>
 			<span id="header_right">
 			{% if request.user.is_authenticated %}
 				Welcome, {{ request.user.username }}! <a href="/admin/">Admin</a> / <a href="/admin/logout/">Log out</a>

@@ -85,7 +85,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = get_env_variable("DJANGO_SECRET_KEY") #'ouo6whx55y+na6co_tmwpowic(uzb6opbvn9@aez3=f+j7fs$5'
+#SECRET_KEY = get_env_variable("DJANGO_SECRET_KEY") #'ouo6whx55y+na6co_tmwpowic(uzb6opbvn9@aez3=f+j7fs$5'
 
 # Google Captcha API key
 GOOGLE_CAPTCHA_PUBLIC_API_KEY = '6Lcmy-oSAAAAAPwospkkCRDFlqScVa3L7lG4CCui'

@@ -58,12 +58,13 @@ urlpatterns = patterns('',
 
     # TODO: Fix index and use something... Should identify subdomains somehow..
     #url(r'^$', include('StackSmash.apps.blog.urls')),
-    url(r'^license/', sslicense),
-    url(r'^docs/', include('StackSmash.apps.docs.urls')),
-    url(r'^blog/', include('StackSmash.apps.blog.urls')),
-    url(r'^projects/', include('StackSmash.apps.projects.urls')),
-    url(r'^upload/', include('StackSmash.apps.uploader.urls')),
-    url(r'^$', to_blog),
+    url(r'^license/', sslicense, name='license'),
+    #url(r'^docs/', include('StackSmash.apps.docs.urls'), name='docs'),
+    url(r'^blog/', include('StackSmash.apps.blog.urls'), name='blog'),
+    url(r'^projects/', include('StackSmash.apps.projects.urls'), name='projects'),
+    url(r'^upload/', include('StackSmash.apps.uploader.urls'), name='upload'),
+    url(r'^$', to_blog, name='index'),
+
     #url(r'^projects/', include('StackSmash.apps.projects.urls')),
 
     # Uncomment the next line to enable the admin:
