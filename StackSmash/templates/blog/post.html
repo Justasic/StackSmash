@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% load restructuredtext_filter %}
+{% load restructuredtext_filter staticfiles %}
 
 {% block head %}
 <title>StackSmash - {{post.title}}</title>
-<link type="text/css" href="/static/post.css" rel="stylesheet">
+<link type="text/css" href="{% static 'post.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -12,13 +12,13 @@
 			<p>Staff Options</p>
 			<hr />
 			<a href="/admin/blog/post/add/">New Post</a><br />
-			<a href="/upload/">Upload a file</a>
+			<a href="{% url 'upload:list' %}">Upload a file</a>
 		{% endif %}
 		<p>Archives</p>
 		<hr />
 		{% for month in months %}
 			{% ifchanged month.0 %} {{ month.0 }} <br /> {% endifchanged %}
-			<a href="{% url 'archive' month.0 month.1 %}" id="month">{{ month.2 }}</a><br />
+			<a href="{% url 'blog:archive' month.0 month.1 %}" id="month">{{ month.2 }}</a><br />
 		{% endfor %}
 	</div>
 	<div class="container">
@@ -34,7 +34,7 @@
 		<p id="comments_text">Comments:</p>
 		<div class="comments">
 			{% if request.user.is_staff %}
-			<form action="{% url 'delete_comment1' post.pk %}" method="POST">{% csrf_token %}
+			<form action="{% url 'blog:delete_comment1' post.pk %}" method="POST">{% csrf_token %}
 			{% endif %}
 			{% for comment in comments %}
 				<div class="comment">
@@ -43,7 +43,7 @@
 				{% if request.user.is_staff %}
 					<div class="delete_class">
 				 	<input type="checkbox" name="delete" value="{{ comment.pk }}">
-					<a href="{% url 'delete_comment2' post.pk comment.id %}">X</a>
+					<a href="{% url 'blog:delete_comment2' post.pk comment.id %}">X</a>
 					</div>
 				{% endif %}
 				</div>
@@ -58,7 +58,7 @@
 		{% endif %}
 		<div id="addc">Add a comment:</div>
 		<!-- Comment form  -->
-		<form action="{% url 'add_comment' post.id %}" method="POST">{% csrf_token %}
+		<form action="{% url 'blog:add_comment' post.id %}" method="POST">{% csrf_token %}
 			<div id="cform">
 				Name: {{ form.author }}
 				<p>{{ form.body }}</p>

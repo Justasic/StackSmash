@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% load restructuredtext_filter %}
+{% load restructuredtext_filter staticfiles %}
 
 {% block head %}
 	<title>StackSmash - Posts</title>
-	<link type="text/css" href="/static/posts.css" rel="stylesheet">
+	<link type="text/css" href="{% static 'posts.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -18,7 +18,7 @@
 		<hr />
 		{% for month in months %}
 			{% ifchanged month.0 %} {{ month.0 }} <br /> {% endifchanged %}
-			<a href="{% url 'archive' month.0 month.1 %}" id="month">{{ month.2 }}</a><br />
+			<a href="{% url 'blog:archive' month.0 month.1 %}" id="month">{{ month.2 }}</a><br />
 		{% endfor %}
 	</div>
 	<div class="posts">

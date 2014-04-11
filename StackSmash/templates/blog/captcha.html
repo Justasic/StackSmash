@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block head %}
 <title>StackSmash - {{post.title}} - Captcha</title>
-<link type="text/css" href="/static/docs.css" rel="stylesheet">
+<link type="text/css" href="{% static 'docs.css' %}" rel="stylesheet">
 {% endblock %}
 
 
@@ -15,7 +16,7 @@
 			theme : 'blackglass'
 		};
 	</script>
-	<form  action="{% url "captcha_verify" post.pk comment.pk %}" method="POST">{% csrf_token %}
+	<form  action="{% url "blog:captcha_verify" post.pk comment.pk %}" method="POST">{% csrf_token %}
 	<span class="validation_error">{{ captcha_response }}</span>
 	<script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k={{ google_captcha_api_key }}"></script>
 	<noscript>

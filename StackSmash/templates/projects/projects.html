@@ -1,8 +1,9 @@
 {% include 'base.html' %}
+{% load staticfiles %}
 
 {% block head %}
 	<title>StackSmash - Projects</title>
-	<link type="text/css" href="/static/projects.css" rel="stylesheet">
+	<link type="text/css" href="{% static 'projects.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}

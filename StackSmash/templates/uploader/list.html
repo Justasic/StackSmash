@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
 {% block head %}
 	<title>StackSmash - File Upload</title>	
 	{# Use the docs.css file. it only has one css class so.. #}
-	<link type="text/css" href="/static/docs.css" rel="stylesheet">
+	<link type="text/css" href="{% static 'docs.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -13,7 +15,7 @@
 			{% for document in documents %}
 				<li>
 					<a href="{{ document.docfile.url }}">/media/{{ document.docfile.name }}</a> - 
-					<a href="{% url 'delete' document.pk %}">delete</a>
+					<a href="{% url 'upload:delete' document.pk %}">delete</a>
 				</li>
 			{% endfor %}
 			</ul>
@@ -22,7 +24,7 @@
 		{% endif %}
 
 		<!-- Upload form. Note enctype attribute! -->
-		<form action="{% url "list" %}" method="post" enctype="multipart/form-data">
+		<form action="{% url "upload:list" %}" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<p>{{ form.non_field_errors }}</p>
 			<p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>

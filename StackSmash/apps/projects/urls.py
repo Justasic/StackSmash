@@ -7,6 +7,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'StackSmash.views.home', name='home'),
     # url(r'^StackSmash/', include('StackSmash.foo.urls')),
 
-    url(r'^$', views.index),
+    url(r'^$', views.index, name='index'),
     url(r'^(?P<slug>[\w\-]+)/$', views.detail),
 )

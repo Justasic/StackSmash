@@ -69,7 +69,7 @@ def index(request):
 
 def archive(request, year, month):
     """Monthly archive."""
-    posts = Post.objects.filter(pub_date__year=year, pub_date__month=month)
+    posts = Post.objects.filter(pub_date__year=year, pub_date__month=month, listed=True)
     ctx = RequestContext(request, {
         'posts': posts,
         'months': make_archive_list(),
@@ -80,10 +80,13 @@ def archive(request, year, month):
 
 
 def post(request, year, month, slug):
+    # Only allow non-listed posts to be viewed if you're not authenticated.
+    listed = not request.user.is_authenticated()
     # Get post object
     post = get_object_or_404(Post, slug=slug,
                              pub_date__year=int(year),
-                             pub_date__month=int(month))
+                             pub_date__month=int(month),
+                             listed=listed)
 
     comments = Comment.objects.filter(post=post, listed=True)
 
@@ -126,9 +129,9 @@ def add_comment(request, pk):
         comment.save()
 
         if request.user.is_authenticated():
-            return HttpResponseRedirect(reverse("post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+            return HttpResponseRedirect(reverse("blog:post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
         else:
-            return HttpResponseRedirect(reverse("captcha", args=(post.pk, int(comment.pk),)))
+            return HttpResponseRedirect(reverse("blog:captcha", args=(post.pk, int(comment.pk),)))
 
 
 def captcha_check(request, post_pk, pk):
@@ -142,7 +145,7 @@ def captcha_check(request, post_pk, pk):
         if not comment.listed:
             comment.listed = True
             comment.save()
-        return HttpResponseRedirect(reverse("post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+        return HttpResponseRedirect(reverse("blog:post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
     else:
         ctx = RequestContext(request, {
         'google_captcha_api_key': settings.GOOGLE_CAPTCHA_PUBLIC_API_KEY,
@@ -168,7 +171,7 @@ def captcha_verify(request, post_pk, pk):
     if response.is_valid:
         comment.listed = True
         comment.save()
-        return HttpResponseRedirect(reverse("post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+        return HttpResponseRedirect(reverse("blog:post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
     else:
         ctx = RequestContext(request, {
             'google_captcha_api_key': settings.GOOGLE_CAPTCHA_PUBLIC_API_KEY,
@@ -190,7 +193,7 @@ def delete_comment(request, post_pk, pk=None):
         post = Post.objects.get(pk=post_pk)
         for pk in pklst:
             Comment.objects.get(pk=pk).delete()
-        return HttpResponseRedirect(reverse("post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
+        return HttpResponseRedirect(reverse("blog:post", args=(post.pub_date.year, post.pub_date.month, post.slug,)) + '#comments')
 
 
 def about(request):
