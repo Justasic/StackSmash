@@ -6,6 +6,44 @@ body {
 	font-size: 12px;
 	margin: 0px;
 }
+.topbar {
+	background: #333;
+	border: 1px;
+	height:60px;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	box-shadow: 4px 4px 10px #000;
+
+}
+
+
+.topbar a:link,a:visited
+{
+display:block;
+font-size: 21;
+font-weight:bold;
+color: #57BE85;
+text-shadow: 2px 2px 4px #000000;
+
+text-align:center;
+padding:4px;
+text-decoration:none;
+text-transform:uppercase;
+
+}
+
+.topbar a:hover,a:active
+{
+/background-color:#7C7C7C;
+}
+
+.login {
+
+	/padding: 12px 0;
+	font-size: 12px;
+}
 
 .header_container {
 	background: #333;
@@ -26,15 +64,29 @@ body {
 	font-size: 18px;
 }
 
-.header_container .header a {
-	/*color: #336699;*/
+.header_container .header a:link,a:visited
+{
+display:block;
+font-size: 21;
+/font-weight:bold;
+color: #57BE85;
+text-shadow: 2px 2px 4px #000000;
+/background-color: #333;
+text-align:center;
+padding:4px;
+text-decoration:none;
+text-transform:uppercase;
+
 }
+
 
 #header_right {
 	float: right;
 	padding: 12px 0;
 	font-size: 12px;
 }
+
+
 
 a {
 	color: #0298e3;

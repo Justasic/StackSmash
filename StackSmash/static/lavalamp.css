@@ -1,0 +1,68 @@
+
+
+/* from here: http://www.gmarwaha.com/blog/2007/08/23/lavalamp-for-jquery-lovers */
+
+.cancel {
+    float:left;
+}
+
+.remove {
+    display: none;
+}
+
+.login {
+    float: right;
+	font: 'News Cycle', sans-serif;
+    margin-right: 1cm;
+
+}
+
+.minipad {
+    padding: 3px;
+}
+
+.lavaLampWithImage {
+  position: relative;
+  /height: 25px;
+  /padding: 15px 5px 15px 0;
+  margin: 10px 0 0 0;
+  overflow: hidden;
+  /float: left;
+}
+
+.lavaLampWithImage li {
+  float: left;
+  list-style: none;
+}
+
+.lavaLampWithImage li.back {
+  background: #444;
+  border-radius: 15px 15px 15px 15px;
+  -moz-border-radius: 15px 15px 15px 15px;
+  -webkit-border: 15px 15px 15px 15px;
+  height: 28px;
+  z-index: 8;
+  position: absolute;
+}
+
+.lavaLampWithImage li a {
+  font: normal 130% 'News Cycle', sans-serif;
+  text-shadow:1px 1px #000;
+  text-decoration: none;
+  color: #57BE85;;
+  outline: none;
+  text-align: center;
+  letter-spacing: 0;
+  z-index: 10;
+  display: block;
+  float: left;
+  height: 30px;
+  padding: 0px 9px 0 9px;
+  position: relative;
+  overflow: hidden;
+  margin: auto 10px;
+}
+
+.lavaLampWithImage li a:hover, .lavaLampWithImage li a:active, .lavaLampWithImage li a:visited {
+  border: none;
+}
