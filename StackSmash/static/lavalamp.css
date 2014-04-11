@@ -8,12 +8,6 @@
     display: none;
 }
 
-.login {
-    float: right;
-	font: 'News Cycle', sans-serif;
-    margin-right: 1cm;
-}
-
 .lavaLampWithImage {
     position: relative;
     /*height: 25px;*/
@@ -33,13 +27,13 @@
     border-radius: 15px 15px 15px 15px;
     -moz-border-radius: 15px 15px 15px 15px;
     -webkit-border: 15px 15px 15px 15px;
-    height: 28px;
+    height: 23px;
     z-index: 8;
     position: absolute;
 }
 
-.lavaLampWithImage li a, .lavaLampTextDecor {
-    font: normal 130% 'News Cycle', sans-serif;
+.lavaLampWithImage li a {
+    font: normal 130%;
     text-shadow:1px 1px #000;
     text-decoration: none;
     color: #0298e3;

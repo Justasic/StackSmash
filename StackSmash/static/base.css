@@ -31,7 +31,6 @@ body {
     font-weight: bold;
     color: #0298e3;
     text-shadow: 2px 2px 4px #000000;
-    /*background-color: #333;*/
     text-align: center;
     padding: 4px;
     text-decoration: none;
@@ -44,11 +43,13 @@ body {
 }
 
 .login {
+    float: right;
     padding: 13px;
+    text-align: center;
+    margin-right: 1cm;
 }
 
-.menuitems { padding: 3px; }
-.adminlinks { position: fixed; }
+.menuitems { padding: 3px; margin: 1px;}
 
 #icon { margin-right: 10px; }
 

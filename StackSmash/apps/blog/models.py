@@ -27,6 +27,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return '/blog/%04d/%02d/%s/' % (self.pub_date.year, self.pub_date.month, self.slug)
 
+    def GetCommentCount(self):
+        return Comment.objects.filter(listed=True).count()
+
     class Admin:
         pass
 
