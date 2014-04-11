@@ -7,22 +7,23 @@ from django.core.urlresolvers import reverse
 from StackSmash.apps.uploader.models import Document
 from StackSmash.apps.uploader.forms import DocumentForm
 
+
 def list(request):
     # Make sure the user is authenticated and able to modify the blog
     if not request.user.is_superuser:
-	raise Http404
+        raise Http404
 
     # Handle file upload
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            newdoc = Document(docfile = request.FILES['docfile'])
+            newdoc = Document(docfile=request.FILES['docfile'])
             newdoc.save()
 
             # Redirect to the document list after POST
             return HttpResponseRedirect(reverse('StackSmash.apps.uploader.views.list'))
     else:
-        form = DocumentForm() # A empty, unbound form
+        form = DocumentForm()  # A empty, unbound form
 
     # Load documents for the list page
     documents = Document.objects.all()
@@ -34,10 +35,11 @@ def list(request):
         context_instance=RequestContext(request)
     )
 
-def delete(request, pk):
-	# Make sure the user is authenticated and able to modify the blog
-	if not request.user.is_superuser:
-		raise Http404
 
-	Document.objects.filter(pk=pk).delete()
-	return	HttpResponseRedirect(reverse('list'))
+def delete(request, pk):
+    # Make sure the user is authenticated and able to modify the blog
+    if not request.user.is_superuser:
+        raise Http404
+
+    Document.objects.filter(pk=pk).delete()
+    return HttpResponseRedirect(reverse('list'))

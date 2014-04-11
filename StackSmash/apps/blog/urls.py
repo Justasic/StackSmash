@@ -11,5 +11,4 @@ urlpatterns = patterns('',
     url(r"^captcha/(\d+)/(\d+)/$", "StackSmash.apps.blog.views.captcha_check", name="captcha"),
     url(r"^captcha/verify/(\d+)/(\d+)/$", "StackSmash.apps.blog.views.captcha_verify", name="captcha_verify"),
 #    url(r'^$', 'archive', {'num_latest': 15}),
-
 )
